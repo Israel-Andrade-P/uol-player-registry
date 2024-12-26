@@ -7,5 +7,5 @@ public record Player(
         String name,
         String codename,
         String email,
-        Group group,
+        Group groupName,
         String telephone) {}
