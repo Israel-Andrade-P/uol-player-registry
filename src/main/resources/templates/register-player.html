@@ -1,35 +1,42 @@
 <!doctype html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Registration</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
 </head>
 <body>
-<h1>Player Registration</h1>
-<form action="">
-    <div>
-        <label for="name">Name:</label>
-        <input type="text" id="name" required>
-    </div>
-    <div>
-        <label for="email">Email:</label>
-        <input type="email" id="email" required>
-    </div>
-    <div>
-        <label for="tel">Telephone:</label>
-        <input type="number" id="tel">
-    </div>
+<div class="container">
+    <h1 class="mt-5">Player Registration</h1>
+    <form th:action="@{/register-player}" th:method="post" th:object="${player}">
+        <div>
+            <label for="name">Name:</label>
+            <input type="text" id="name" th:field="*{name}" required>
+        </div>
+        <div>
+            <label for="email">Email:</label>
+            <input type="email" id="email" th:field="*{email}" required>
+        </div>
+        <div>
+            <label for="tel">Telephone:</label>
+            <input type="number" th:field="*{telephone}" id="tel">
+        </div>
 
-    <div>
+        <div>
+            <label>Pick a codename group</label>
+            <div th:each="group: ${codenameGroups}">
+                <input type="radio" th:field="*{groupName}" th:value="${group.name()}" th:id="${group.name()}" required>
+                <label th:for="${group.name()}" th:text="${group.getValue()}"></label>
+            </div>
+        </div>
 
-    </div>
-
-    <div>
-        <button type="submit">Register</button>
-    </div>
-</form>
+        <div>
+            <button type="submit" class="btn btn-primary">Register</button>
+        </div>
+    </form>
+</div>
 </body>
 </html>

@@ -25,7 +25,7 @@ public class PlayerRepository {
                 .param("email", player.email())
                 .param("codename", player.codename())
                 .param("telephone", player.telephone())
-                .param("group_name", player.groupName())
+                .param("group_name", player.groupName().getValue())
                 .update();
         return player;
     }

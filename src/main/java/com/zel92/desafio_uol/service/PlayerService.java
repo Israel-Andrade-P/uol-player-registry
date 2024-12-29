@@ -18,12 +18,11 @@ public class PlayerService {
         this.codenameService = codenameService;
     }
 
-    public Player add(Player player) throws JsonProcessingException {
+    public void add(Player player) throws JsonProcessingException {
         var codenamesTaken = listAllTakenCodenames(player.groupName());
         var codename = codenameService.codenameGenerator(player.groupName(), codenamesTaken);
         var newPlayer = player.withCodename(codename);
-
-        return repository.save(newPlayer);
+        repository.save(newPlayer);
     }
 
     private List<String> listAllTakenCodenames(Group groupName) {
