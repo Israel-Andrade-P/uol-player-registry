@@ -30,7 +30,6 @@ public class CodenameService {
 
         return availableCodenames;
     }
-
     private List<String> getCodenames(Group group) throws JsonProcessingException {
         var codenameRepository = codenameRepositoryFactory.create(group);
 

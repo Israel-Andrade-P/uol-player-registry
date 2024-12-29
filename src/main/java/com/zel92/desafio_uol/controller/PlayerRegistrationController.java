@@ -23,7 +23,7 @@ public class PlayerRegistrationController {
     public String playerRegistryPage(Model model){
         model.addAttribute("player", new Player(null, null, null, null, null));
         model.addAttribute("codenameGroups", Group.values());
-        return "register-player";
+        return "register_player";
     }
 
     @PostMapping

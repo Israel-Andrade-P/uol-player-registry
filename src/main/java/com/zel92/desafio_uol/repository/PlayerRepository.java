@@ -15,7 +15,7 @@ public class PlayerRepository {
         this.jdbcClient = jdbcClient;
     }
 
-    public Player save(Player player){
+    public void save(Player player){
         jdbcClient.sql(
                 """
                         INSERT INTO players (name, email, codename, telephone, group_name)
@@ -25,20 +25,22 @@ public class PlayerRepository {
                 .param("email", player.email())
                 .param("codename", player.codename())
                 .param("telephone", player.telephone())
-                .param("group_name", player.groupName().getValue())
+                .param("group_name", player.groupName().name())
                 .update();
-        return player;
     }
 
     public List<String> listCodenamesByGroup(Group groupName) {
       return jdbcClient
-              .sql(
-                """
-                        SELECT distinct(codename) FROM players WHERE group_name=:group_name
-                        """
-        )
+              .sql("SELECT distinct(codename) FROM players WHERE group_name=:group_name")
               .param("group_name", groupName.getValue())
               .query(String.class)
               .list();
+    }
+
+    public List<Player> listAllPlayers() {
+        return jdbcClient
+                .sql("SELECT * FROM players ORDER BY LOWER(name), id")
+                .query(Player.class)
+                .list();
     }
 }

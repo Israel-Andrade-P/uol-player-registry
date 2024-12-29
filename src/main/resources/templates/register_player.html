@@ -27,7 +27,7 @@
 
         <div>
             <label>Pick a codename group</label>
-            <div th:each="group: ${codenameGroups}">
+            <div th:each="group : ${codenameGroups}">
                 <input type="radio" th:field="*{groupName}" th:value="${group.name()}" th:id="${group.name()}" required>
                 <label th:for="${group.name()}" th:text="${group.getValue()}"></label>
             </div>
@@ -35,6 +35,7 @@
 
         <div>
             <button type="submit" class="btn btn-primary">Register</button>
+            <a th:href="@{/players-list}" class="btn btn-primary">List of Players</a>
         </div>
     </form>
 </div>

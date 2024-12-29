@@ -25,6 +25,10 @@ public class PlayerService {
         repository.save(newPlayer);
     }
 
+    public List<Player> listPlayers(){
+        return repository.listAllPlayers();
+    }
+
     private List<String> listAllTakenCodenames(Group groupName) {
         return repository.listCodenamesByGroup(groupName);
     }
