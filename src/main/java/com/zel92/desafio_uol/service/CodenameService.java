@@ -15,16 +15,15 @@ public class CodenameService {
         this.codenameRepositoryFactory = codenameRepositoryFactory;
     }
 
-    public String codenameGenerator(Group group, List<String> codenamesTaken){
+    public String codenameGenerator(Group group, List<String> codenamesTaken) throws JsonProcessingException {
         List<String> availableCodenames = listAvailableCodenames(group, codenamesTaken);
         if (availableCodenames.isEmpty()){
             throw new NoCodenameAvailableException("No codename available for group: " + group.getValue());
         }
-        String codenameSelected = selectCodename(availableCodenames);
-        return codenameSelected;
-    }
 
-    private List<String> listAvailableCodenames(Group group, List<String> codenamesTaken) {
+        return  selectCodename(availableCodenames);
+    }
+    private List<String> listAvailableCodenames(Group group, List<String> codenamesTaken) throws JsonProcessingException {
        List<String> codenames = getCodenames(group);
 
        List<String> availableCodenames = codenames.stream().filter(codename -> !codenamesTaken.contains(codename)).toList();
@@ -36,5 +35,10 @@ public class CodenameService {
         var codenameRepository = codenameRepositoryFactory.create(group);
 
         return codenameRepository.getCodenameList();
+    }
+
+    private String selectCodename(List<String> availableCodenames) {
+        return availableCodenames
+                .get((int) (Math.random() * availableCodenames.size()));
     }
 }
