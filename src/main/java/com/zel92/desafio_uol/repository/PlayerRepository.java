@@ -32,7 +32,7 @@ public class PlayerRepository {
     public List<String> listCodenamesByGroup(Group groupName) {
       return jdbcClient
               .sql("SELECT distinct(codename) FROM players WHERE group_name=:group_name")
-              .param("group_name", groupName.getValue())
+              .param("group_name", groupName.name())
               .query(String.class)
               .list();
     }

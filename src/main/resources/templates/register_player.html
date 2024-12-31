@@ -15,10 +15,12 @@
         <div>
             <label for="name">Name:</label>
             <input type="text" id="name" th:field="*{name}" required>
+            <div th:if="${#fields.hasErrors('name')}" th:errors="*{name}">Name is mandatory</div>
         </div>
         <div>
             <label for="email">Email:</label>
             <input type="email" id="email" th:field="*{email}" required>
+            <div th:if="${#fields.hasErrors('email')}" th:errors="*{email}">Email is invalid</div>
         </div>
         <div>
             <label for="tel">Telephone:</label>
@@ -31,11 +33,16 @@
                 <input type="radio" th:field="*{groupName}" th:value="${group.name()}" th:id="${group.name()}" required>
                 <label th:for="${group.name()}" th:text="${group.getValue()}"></label>
             </div>
+            <div th:if="${#fields.hasErrors('groupName')}" th:errors="*{groupName}">Codename group not selected</div>
         </div>
 
         <div>
             <button type="submit" class="btn btn-primary">Register</button>
             <a th:href="@{/players-list}" class="btn btn-primary">List of Players</a>
+        </div>
+
+        <div th:if="${errorMessage}">
+            <p th:text="${errorMessage}" style="color:red;"></p>
         </div>
     </form>
 </div>
